@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=10,chrome=1">
+		<title>DateTimeRanger</title>
+		<!--link rel="stylesheet" type="text/css" href="https://bootswatch.com/slate/bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" href="../TimeDropper-Ex/src/timedropper.slate.css" />
+		<link rel="stylesheet" type="text/css" href="../DateRange-Picker-Ex/src/daterangepicker.slate.css" />
+		<link rel="stylesheet" type="text/css" href="src/datetimeranger.slate.css" /-->
+		<link rel="stylesheet" type="text/css" href="../TimeDropper-Ex/src/timedropper.css" />
+		<link rel="stylesheet" type="text/css" href="../DateRange-Picker-Ex/src/daterangepicker.css" />
+		<link rel="stylesheet" type="text/css" href="src/datetimeranger.css" />
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.min.js"></script>
+		<script type="text/javascript" src="../TimeDropper-Ex/src/timedropper.js"></script>
+		<script type="text/javascript" src="../TimeDropper-Ex/src/timedropper.lang.js"></script>
+		<script type="text/javascript" src="../DateRange-Picker-Ex/src/jquery.daterangepicker.js"></script>
+		<script type="text/javascript" src="../DateRange-Picker-Ex/src/jquery.daterangepicker.lang.js"></script>
+		<script type="text/javascript" src="src/datetimeranger.js"></script>
+		<style type="text/css">
+		#wrapper
+		{
+			max-width:800px;
+			margin:0 auto;
+            font-family:Tahoma,Verdana,sans-serif;
+			line-height:1.5;
+			font-size:14px;
+		}
+		.demo { margin:30px 20px 0 0; }
+		button { color:black !important; }
+		pre
+		{
+			font-size:12px;
+			background:#eee;
+			padding:0.5em;
+		}
+		</style>
+	</head>
+	<body>
+		<div id="wrapper">
+			<div style="margin-bottom:1em"><h1 style="display:inline">DateTimeRanger<h4 style="display:inline">
+				<a href="https://github.com/Adam5Wu/DateTimeRanger">[Repository]</a>
+			</h4></h1></div>
+			<p>
+				DateTimeRanger is a jQuery plugin for fast visual and interactive date + time (range) entry.
+			</p>
+			<p>
+				Requires
+				<a href="http://jquery.com/" target=_blank>jQuery</a> 1.7.0+ (MIT LICENSE),
+				<a href="http://momentjs.com/" target=_blank>MomentJS</a> 2.9.0+ (MIT LICENSE),
+				<a href="https://adam5wu.github.io/DateRange-Picker-Ex/" target=_blank>DateRange-Picker-Ex</a> 1.1.4+ (MIT LICENSE),
+				<a href="https://adam5wu.github.io/TimeDropper-Ex/" target=_blank>TimeDropper-Ex</a> 1.4.1+ (MIT LICENSE)
+			</p>
+			Compatible Browsers:
+			<ul>
+				<li>Google Chrome 40+
+				<li>Mozilla Firefox 30+
+				<li>Microsoft Edge
+				<li>Microsoft Internet Explorer 10+
+				<li>Opera 25+
+				<li>Safari 5+
+			</ul>
+			<p>
+				Supports multi-language, you can choose a pre-defined language or set it to auto-detect mode. <br>
+				You can also define new languages, see documentations of
+				<a href="https://adam5wu.github.io/DateRange-Picker-Ex/" target=_blank>DateRange-Picker-Ex</a> and
+				<a href="https://adam5wu.github.io/TimeDropper-Ex/" target=_blank>TimeDropper-Ex</a>.
+			</p>
+			<p>
+				Easily customizeable colors and style to adopt to arbitrary theme. <br>
+				Refer to <a href="src/datetimeranger.slate.delta.css">the "Slate" delta CSS</a> for example. <br>
+				Also, see documentations of
+				<a href="https://adam5wu.github.io/DateRange-Picker-Ex/" target=_blank>DateRange-Picker-Ex</a> and
+				<a href="https://adam5wu.github.io/TimeDropper-Ex/" target=_blank>TimeDropper-Ex</a>
+			</p>
+            <h2 id="installation">Installation</h2>
+<pre>
+&lt;link rel="stylesheet" type="text/css" href="timedropper.min.css" />
+&lt;link rel="stylesheet" type="text/css" href="daterangepicker.min.css" />
+&lt;link rel="stylesheet" type="text/css" href="dist/datetimeranger.min.css" />
+&lt;!-- Optional "Slate" color theme -->
+&lt;link rel="stylesheet" type="text/css" href="timedropper.slate.delta.min.css" />
+&lt;link rel="stylesheet" type="text/css" href="daterangepicker.slate.delta.min.css" />
+&lt;link rel="stylesheet" type="text/css" href="dist/datetimeranger.slate.delta.min.css" />
+&lt;script type="text/javascript" src="jquery.min.js">&lt;/script>
+&lt;script type="text/javascript" src="moment.min.js">&lt;/script>
+&lt;script type="text/javascript" src="timedropper.min.js">&lt;/script>
+&lt;script type="text/javascript" src="timedropper.lang.min.js">&lt;/script>
+&lt;script type="text/javascript" src="daterangepicker.min.js">&lt;/script>
+&lt;script type="text/javascript" src="daterangepicker.lang.min.js">&lt;/script>
+&lt;script type="text/javascript" src="dist/datetimeranger.min.js">&lt;/script>
+</pre>
+            <h2 id="demonstrations">Demonstrations</h2>
+			<div>
+				<button id="add-slate">Use Slate Color Theme</button>
+				<button id="remove-slate">Remove Slate Color Theme</button>
+			</div>
+			<div class="demo">
+				Default: <div id="dtp1"></div>
+			</div>
+		</div>
+<script>
+$('#add-slate').click(function () {
+	$('head').append('<link rel="stylesheet" type="text/css" href="https://bootswatch.com/slate/bootstrap.min.css">');
+	$('head').append('<link rel="stylesheet" type="text/css" href="../TimeDropper-Ex/src/timedropper.slate.delta.css" />');
+	$('head').append('<link rel="stylesheet" type="text/css" href="../DateRange-Picker-Ex/src/daterangepicker.slate.delta.css" />');
+	$('head').append('<link rel="stylesheet" type="text/css" href="src/datetimeranger.slate.delta.css" />');
+});
+$('#remove-slate').click(function () {
+	$('link[rel=stylesheet][href*="slate"]').remove();
+});
+$("#dtp1").datetimeranger({});
+</script>
+	</body>
+</html>
