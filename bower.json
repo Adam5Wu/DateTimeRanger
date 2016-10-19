@@ -1,0 +1,48 @@
+{
+	"name" : "datetimeranger",
+	"version" : "1.0.0",
+	"authors" : [
+		"Zhenyu Wu <Adam_5Wu@hotmail.com>"
+	],
+	"homepage" : "https://adam5wu.github.io/DateTimeRanger/",
+	"description" : "DateTimeRanger is a jQuery plugin for fast visual and interactive date + time (range) entry.",
+	"keywords" : [
+		"jquery",
+		"date",
+		"datetime",
+		"daterange",
+		"timerange",
+		"datetimerange",
+		"picker",
+		"datepicker",
+		"timepicker",
+		"datetimepicker",
+		"datetimeranger"
+	],
+	"main" : [
+		"./src/datetimeranger.js",
+		"./src/datetimeranger.css",
+		"./src/datetimeranger.slate.css",
+		"./src/datetimeranger.slate.delta.css"
+	],
+	"moduleType" : [
+		"amd",
+		"globals"
+	],
+	"license" : "MIT",
+	"repository" : {
+		"type" : "git",
+		"url" : "git://github.com/Adam5Wu/DateTimeRanger.git"
+	},
+	"ignore" : [
+		"node_modules",
+		"bower_components",
+		"gulpfile.js"
+	],
+	"dependencies" : {
+		"jquery" : ">=1.4.2",
+		"moment" : ">=2.9.0",
+		"daterange-picker-ex" : ">=1.1.4",
+		"timedropper-ex" : ">=1.4.1"
+	}
+}
