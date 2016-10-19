@@ -1,8 +1,8 @@
 # DateTimeRanger
-[![GitHub issues](https://img.shields.io/github/issues/Adam5Wu/DateRange-Picker-Ex.svg)](https://github.com/Adam5Wu/DateRange-Picker-Ex/issues)
-[![GitHub forks](https://img.shields.io/github/forks/Adam5Wu/DateRange-Picker-Ex.svg)](https://github.com/Adam5Wu/DateRange-Picker-Ex/network)
-[![License](https://img.shields.io/github/license/Adam5Wu/DateRange-Picker-Ex.svg)](./LICENSE)
-[![Bower version](https://img.shields.io/bower/v/daterange-picker-ex.svg?maxAge=3600)](https://bower.io/search/)
+[![GitHub issues](https://img.shields.io/github/issues/Adam5Wu/DateTimeRanger.svg)](https://github.com/Adam5Wu/DateTimeRanger/issues)
+[![GitHub forks](https://img.shields.io/github/forks/Adam5Wu/DateTimeRanger.svg)](https://github.com/Adam5Wu/DateTimeRanger/network)
+[![License](https://img.shields.io/github/license/Adam5Wu/DateTimeRanger.svg)](./LICENSE)
+[![Bower version](https://img.shields.io/bower/v/DateTimeRanger.svg?maxAge=3600)](https://bower.io/search/)
 
 DateTimeRanger is a jQuery plugin for fast visual and interactive date + time (range) entry.
 
@@ -30,7 +30,7 @@ This project is released under MIT LICENSE
 * Clone this project
 	```
 	git clone https://github.com/Adam5Wu/DateTimeRanger.git
-	cd DateRange-Picker-Ex
+	cd DateTimeRanger
 	```
 	
 * Install local dependencies
