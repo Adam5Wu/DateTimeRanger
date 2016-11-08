@@ -591,21 +591,12 @@
 					return moment(range.start).isAfter(moment(range.end));
 				return null;
 			}
+
 			function RangeReverseFix(range) {
 				if (isRangeReversed(range)) {
 					var temp = range.end;
 					range.end = range.start;
 					range.start = temp;
-					return true;
-				}
-				return false;
-			}
-			function selRangeReverseFix(range) {
-				if (RangeReverseFix(range)) {
-					// Also reverse follow time attributes
-					var followTime_start = state.followTime.start;
-					state.followTime.start = state.followTime.end;
-					state.followTime.end = followTime_start;
 					return true;
 				}
 				return false;
@@ -713,9 +704,9 @@
 				if (datetime) {
 					var time = datetime.getHours() * 3600 + datetime.getMinutes() * 60
 						 + datetime.getSeconds() + datetime.getMilliseconds() / 1000;
-					time_picker.setTime(time);
+					time_picker.setTime(time, true);
 				} else {
-					time_picker.setTime(null);
+					time_picker.setTime(null, true);
 				}
 			}
 
@@ -739,9 +730,17 @@
 			}
 
 			function selRangeChange(source, range, silent) {
+				var RangeReversal = RangeReverseFix(state.selRange);
+				if (RangeReversal) {
+					// Also reverse follow time attributes
+					var followTime_start = state.followTime.start;
+					state.followTime.start = state.followTime.end;
+					state.followTime.end = followTime_start;
+				}
+
 				var DatePickerUpdate = true;
-				if (range[0]) {
-					switch (source[0]) {
+				if (range[0] || RangeReversal) {
+					switch (RangeReversal ? 'internal' : source[0]) {
 					case 'picker':
 						switch (source[1]) {
 						case 'time':
@@ -775,8 +774,8 @@
 					var timeStr = getDateTimeString(state.selRange.start, opt.summaryFmt);
 					state.el.summary_start.text(timeStr);
 				}
-				if (range[1]) {
-					switch (source[0]) {
+				if (range[1] || RangeReversal) {
+					switch (RangeReversal ? 'internal' : source[0]) {
 					case 'picker':
 						switch (source[1]) {
 						case 'time':
@@ -810,7 +809,7 @@
 					var timeStr = getDateTimeString(state.selRange.end, opt.summaryFmt);
 					state.el.summary_end.text(timeStr);
 				}
-				if (DatePickerUpdate) {
+				if (DatePickerUpdate || RangeReversal) {
 					if (state.selRange.start) {
 						if (state.selRange.end) {
 							updateDatePickers([state.selRange.start, state.selRange.end],
@@ -838,6 +837,7 @@
 				if (!silent) {
 					var event_payload = {
 						'source': source,
+						'reversal': RangeReversal
 					};
 					if (state.selRange.start)
 						event_payload['start'] = new Date(state.selRange.start);
@@ -878,8 +878,6 @@
 					datetime.setDate(date.getDate());
 
 					selRangeChange([source, 'date'], [true, false]);
-					if (selRangeReverseFix(state.selRange))
-						selRangeChange(['internal', 'range-reverse'], [true, true]);
 				}
 			}
 
@@ -926,16 +924,7 @@
 					datetime.setMilliseconds(newMSec);
 
 					selRangeChange([source, 'time'], [true, false]);
-					if (selRangeReverseFix(state.selRange))
-						selRangeChange(['internal', 'range-reverse'], [true, true]);
 				}
-			}
-
-			function setRangeStart(source, datetime, notime, silent) {
-				state.selRange.start = datetime;
-				state.followTime.start = notime;
-
-				selRangeChange([source, 'set-rangestart'], [true, selRangeReverseFix(state.selRange)]);
 			}
 
 			function uiSetEndDate(source, date) {
@@ -968,8 +957,6 @@
 					datetime.setDate(date.getDate());
 
 					selRangeChange([source, 'date'], [false, true]);
-					if (selRangeReverseFix(state.selRange))
-						selRangeChange(['internal', 'range-reverse'], [true, true]);
 				}
 			}
 
@@ -1016,16 +1003,21 @@
 					datetime.setMilliseconds(newMSec);
 
 					selRangeChange([source, 'time'], [false, true]);
-					if (selRangeReverseFix(state.selRange))
-						selRangeChange(['internal', 'range-reverse'], [true, true]);
 				}
+			}
+
+			function setRangeStart(source, datetime, notime, silent) {
+				state.selRange.start = datetime;
+				state.followTime.start = notime;
+
+				selRangeChange([source, 'set-rangestart'], [true, false]);
 			}
 
 			function setRangeEnd(source, datetime, notime, silent) {
 				state.selRange.end = datetime;
 				state.followTime.end = notime;
 
-				selRangeChange([source, 'set-rangeend'], [selRangeReverseFix(state.selRange), true]);
+				selRangeChange([source, 'set-rangeend'], [false, true]);
 			}
 
 			function setRange(source, datetime1, notime1, datetime2, notime2, silent) {
@@ -1034,7 +1026,6 @@
 				state.selRange.end = datetime2;
 				state.followTime.end = notime2;
 
-				selRangeReverseFix(state.selRange);
 				selRangeChange([source, 'set-range'], [true, true]);
 			}
 

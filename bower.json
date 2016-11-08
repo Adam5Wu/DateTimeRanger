@@ -1,6 +1,6 @@
 {
 	"name" : "datetimeranger",
-	"version" : "1.0.1",
+	"version" : "1.0.2",
 	"authors" : [
 		"Zhenyu Wu <Adam_5Wu@hotmail.com>"
 	],
@@ -44,6 +44,6 @@
 		"jquery" : ">=1.4.2",
 		"moment" : ">=2.9.0",
 		"daterange-picker-ex" : ">=1.1.5",
-		"timedropper-ex" : ">=1.4.2"
+		"timedropper-ex" : ">=1.4.3"
 	}
 }
