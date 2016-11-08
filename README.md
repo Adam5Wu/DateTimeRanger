@@ -2,7 +2,9 @@
 [![GitHub issues](https://img.shields.io/github/issues/Adam5Wu/DateTimeRanger.svg)](https://github.com/Adam5Wu/DateTimeRanger/issues)
 [![GitHub forks](https://img.shields.io/github/forks/Adam5Wu/DateTimeRanger.svg)](https://github.com/Adam5Wu/DateTimeRanger/network)
 [![License](https://img.shields.io/github/license/Adam5Wu/DateTimeRanger.svg)](./LICENSE)
-[![Bower version](https://img.shields.io/bower/v/DateTimeRanger.svg?maxAge=3600)](https://bower.io/search/)
+[![Bower version](https://img.shields.io/bower/v/datetimeranger.svg?maxAge=3600)](https://bower.io/search/)
+[![NPM version](https://img.shields.io/npm/v/datetimeranger.svg?maxAge=3600)](https://www.npmjs.com/package/datetimeranger)
+
 
 DateTimeRanger is a jQuery plugin for fast visual and interactive date + time (range) entry.
 
