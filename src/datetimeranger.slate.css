@@ -138,12 +138,16 @@
 	width: 5.5em;
 	text-align: left;
 }
+.dt-ranger .oper-zone input::-ms-clear
+{
+	display: none;
+}
 .dt-ranger .oper-zone input::-webkit-calendar-picker-indicator,
 .dt-ranger .oper-zone input::-webkit-inner-spin-button,
 .dt-ranger .oper-zone input::-webkit-clear-button
 {
 	-webkit-appearance: none;
-    display: none;
+	display: none;
 }
 
 .dt-ranger .oper-zone .dr-picker
