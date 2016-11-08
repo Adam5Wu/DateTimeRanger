@@ -561,8 +561,6 @@
 					//console.log('end-time-input-keyup', event.keyCode);
 					inputKeyUp(event.keyCode, this, 'time', [false, true]);
 				});
-
-				//...
 			}
 
 			function statusCheck(initialized) {
