@@ -358,15 +358,30 @@
 					state.selDelay = setTimeout(function () {
 							state.selDelay = null;
 						}, 100);
-				});
-				state.el.start_pickers.on('TDEx-update', function (event, obj) {
-					//console.log('start-time-pick', obj);
+				}).on('TDEx-update', function (event, obj) {
+					// Do not update when dailing
+					if (obj.dailing)
+						return;
 
 					// Do not auto-update if input is changing
 					if (obj.now && inputScanners['start-time'])
 						return;
 
+					//console.log('start-time-pick', obj);
 					uiSetStartTime('picker', obj.time[0], obj.now);
+				}).on('TDEx-dailing', function (event, obj) {
+					if (obj.finish) {
+						//console.log('start-time-dailed', obj);
+						var time = state.start_timepicker.getTime();
+						uiSetStartTime('picker', time[0], false);
+
+						if (state.selDelay)
+							clearTimeout(state.selDelay);
+
+						state.selDelay = setTimeout(function () {
+								state.selDelay = null;
+							}, 100);
+					}
 				});
 				state.el.start_input_date.on('input', function (event) {
 					scheduleInputScan('start-date', this, function (el) {
@@ -409,15 +424,30 @@
 					state.selDelay = setTimeout(function () {
 							state.selDelay = null;
 						}, 100);
-				});
-				state.el.end_pickers.on('TDEx-update', function (event, obj) {
-					//console.log('end-time-pick', obj);
+				}).on('TDEx-update', function (event, obj) {
+					// Do not update when dailing
+					if (obj.dailing)
+						return;
 
 					// Do not auto-update if input is changing
 					if (obj.now && inputScanners['end-time'])
 						return;
 
+					//console.log('end-time-pick', obj);
 					uiSetEndTime('picker', obj.time[0], obj.now);
+				}).on('TDEx-dailing', function (event, obj) {
+					if (obj.finish) {
+						//console.log('end-time-dailed', obj);
+						var time = state.end_timepicker.getTime();
+						uiSetEndTime('picker', time[0], false);
+
+						if (state.selDelay)
+							clearTimeout(state.selDelay);
+
+						state.selDelay = setTimeout(function () {
+								state.selDelay = null;
+							}, 100);
+					}
 				});
 				state.el.end_input_date.on('input', function (event) {
 					scheduleInputScan('end-date', this, function (el) {
@@ -449,9 +479,6 @@
 					if (!el.validity.valid) {
 						selRangeChange(['picker', source], range, true);
 						inputValidityCheck(el);
-					} else {
-						if (selRangeReverseFix(state.selRange))
-							selRangeChange(['internal', 'range-reverse'], [true, true]);
 					}
 				}
 
@@ -645,9 +672,6 @@
 						});
 					};
 
-					if (selRangeReverseFix(state.selRange))
-						selRangeChange(['internal', 'range-reverse'], [true, true]);
-
 					if (state.selRange.start && state.selRange.end)
 						state.el.summary_bar.slideDown(duration);
 					else
@@ -763,7 +787,7 @@
 							updateInput(state.selRange.end,
 								source[1] == 'date' || !state.el.end_input_date.val() ? state.el.end_input_date : null,
 								source[1] == 'time' || !state.el.end_input_time.val() ? state.el.end_input_time : null,
-								state.followTime.start);
+								state.followTime.end);
 							break;
 						}
 						break;
@@ -777,12 +801,12 @@
 							break;
 						case 'date':
 							if (!state.el.end_input_time.val())
-								updateInput(state.selRange.end, null, state.el.end_input_time, state.followTime.start);
+								updateInput(state.selRange.end, null, state.el.end_input_time, state.followTime.end);
 							break;
 						}
 						break;
 					default:
-						updateInput(state.selRange.end, state.el.end_input_date, state.el.end_input_time, state.followTime.start);
+						updateInput(state.selRange.end, state.el.end_input_date, state.el.end_input_time, state.followTime.end);
 						updateTimePicker(state.followTime.end ? false : state.selRange.end, state.end_timepicker);
 					}
 					var timeStr = getDateTimeString(state.selRange.end, opt.summaryFmt);
@@ -855,7 +879,9 @@
 					datetime.setMonth(date.getMonth());
 					datetime.setDate(date.getDate());
 
-					selRangeChange([source, 'date'], [true, selRangeReverseFix(state.selRange)]);
+					selRangeChange([source, 'date'], [true, false]);
+					if (selRangeReverseFix(state.selRange))
+						selRangeChange(['internal', 'range-reverse'], [true, true]);
 				}
 			}
 
@@ -901,7 +927,9 @@
 					datetime.setSeconds(newSec);
 					datetime.setMilliseconds(newMSec);
 
-					selRangeChange([source, 'time'], [true, selRangeReverseFix(state.selRange)]);
+					selRangeChange([source, 'time'], [true, false]);
+					if (selRangeReverseFix(state.selRange))
+						selRangeChange(['internal', 'range-reverse'], [true, true]);
 				}
 			}
 
@@ -941,7 +969,9 @@
 					datetime.setMonth(date.getMonth());
 					datetime.setDate(date.getDate());
 
-					selRangeChange([source, 'date'], [selRangeReverseFix(state.selRange), true]);
+					selRangeChange([source, 'date'], [false, true]);
+					if (selRangeReverseFix(state.selRange))
+						selRangeChange(['internal', 'range-reverse'], [true, true]);
 				}
 			}
 
@@ -987,7 +1017,9 @@
 					datetime.setSeconds(newSec);
 					datetime.setMilliseconds(newMSec);
 
-					selRangeChange([source, 'time'], [selRangeReverseFix(state.selRange), true]);
+					selRangeChange([source, 'time'], [false, true]);
+					if (selRangeReverseFix(state.selRange))
+						selRangeChange(['internal', 'range-reverse'], [true, true]);
 				}
 			}
 
