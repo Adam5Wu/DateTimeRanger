@@ -8,10 +8,15 @@
 }
 .dt-ranger b
 {
-	color: #789;
+	color: #8AC;
 }
 .dt-ranger .default-bar:hover,
 .dt-ranger .summary-bar:hover
+{
+	color: #BCD;
+}
+.dt-ranger .default-bar:hover b,
+.dt-ranger .summary-bar:hover b
 {
 	color: #ACE;
 }
@@ -28,9 +33,12 @@
 	background-color: #123;
 	color: #ACE;
 }
+.dt-ranger .oper-zone input.floating:before {
+	color: cadetblue;
+}
 .dt-ranger .oper-zone input.invalid {
 	color: goldenrod;
 }
 .dt-ranger .oper-zone input.invalid:before {
-  color: orchid;
+	color: orchid;
 }

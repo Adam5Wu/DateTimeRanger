@@ -1,6 +1,6 @@
 {
 	"name" : "datetimeranger",
-	"version" : "1.0.0",
+	"version" : "1.0.1",
 	"authors" : [
 		"Zhenyu Wu <Adam_5Wu@hotmail.com>"
 	],
@@ -21,6 +21,7 @@
 	],
 	"main" : [
 		"./src/datetimeranger.js",
+		"./src/datetimeranger.lang.js",
 		"./src/datetimeranger.css",
 		"./src/datetimeranger.slate.css",
 		"./src/datetimeranger.slate.delta.css"

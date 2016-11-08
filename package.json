@@ -1,7 +1,7 @@
 {
 	"name" : "datetimeranger",
 	"description" : "DateTimeRanger is a jQuery plugin for fast visual and interactive date + time (range) entry.",
-	"version" : "1.0.0",
+	"version" : "1.0.1",
 	"license" : "MIT",
 	"keywords" : [
 		"jquery",

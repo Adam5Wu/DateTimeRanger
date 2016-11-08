@@ -22,16 +22,27 @@
 {
 	cursor: pointer;
 	font-size: 12pt;
+	margin: 0 0.5em;
+}
+.dt-ranger .default-bar,
+.dt-ranger .default-bar *,
+.dt-ranger .summary-bar,
+.dt-ranger .summary-bar *
+{
 	-webkit-transition: color 0.25s linear 0s;
 	-moz-transition: color 0.25s linear 0s;
 	-ms-transition: color 0.25s linear 0s;
 	transition: color 0.25s linear 0s;
-	margin: 0 0.5em;
 }
 .dt-ranger .default-bar:hover,
 .dt-ranger .summary-bar:hover
 {
 	color: #579;
+}
+.dt-ranger .default-bar:hover b,
+.dt-ranger .summary-bar:hover b
+{
+	color: #248;
 }
 .dt-ranger .default-bar>i
 {
@@ -88,12 +99,22 @@
 {
 	font-family: monospace, courier new, courier;
 	font-size: 12pt;
+	font-weight: 500;
 	padding: 0.2em 0;
 	cursor: text;
 	border: none;
 	outline: none;
 	position: relative;
 	border-radius: 5px;
+}
+.dt-ranger .oper-zone input.floating:before {
+	content: "*";
+	color: green;
+	position: absolute;
+	top: 0;
+	right: 2pt;
+	overflow: hidden;
+	cursor: help;
 }
 .dt-ranger .oper-zone input.invalid {
 	color: darkred;

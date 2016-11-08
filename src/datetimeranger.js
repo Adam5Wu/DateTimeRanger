@@ -90,6 +90,7 @@
 					start: false,
 					end: false
 				},
+				selDelay: null,
 
 				active: false
 			};
@@ -350,6 +351,13 @@
 							state.start_timepicker.select(opt.startFrom);
 						}, 0);
 					}
+
+					if (state.selDelay)
+						clearTimeout(state.selDelay);
+
+					state.selDelay = setTimeout(function () {
+							state.selDelay = null;
+						}, 100);
 				});
 				state.el.start_pickers.on('TDEx-update', function (event, obj) {
 					//console.log('start-time-pick', obj);
@@ -394,6 +402,13 @@
 							state.end_timepicker.select(opt.startFrom);
 						}, 0);
 					}
+
+					if (state.selDelay)
+						clearTimeout(state.selDelay);
+
+					state.selDelay = setTimeout(function () {
+							state.selDelay = null;
+						}, 100);
 				});
 				state.el.end_pickers.on('TDEx-update', function (event, obj) {
 					//console.log('end-time-pick', obj);
@@ -435,13 +450,8 @@
 						selRangeChange(['picker', source], range, true);
 						inputValidityCheck(el);
 					} else {
-						if (RangeReverseFix(state.selRange)) {
-							// Also reverse follow time attributes
-							var followTime_start = state.followTime.start;
-							state.followTime.start = state.followTime.end;
-							state.followTime.end = followTime_start;
+						if (selRangeReverseFix(state.selRange))
 							selRangeChange(['internal', 'range-reverse'], [true, true]);
-						}
 					}
 				}
 
@@ -565,14 +575,26 @@
 				}
 				return false;
 			}
+			function selRangeReverseFix(range) {
+				if (RangeReverseFix(range)) {
+					// Also reverse follow time attributes
+					var followTime_start = state.followTime.start;
+					state.followTime.start = state.followTime.end;
+					state.followTime.end = followTime_start;
+					return true;
+				}
+				return false;
+			}
 
 			function clickContained(evt, container) {
 				return container.contains(evt.target) || evt.target == container;
 			}
 
 			function defocusClick(evt) {
-				if (!clickContained(evt, state.anchor[0]) && !clickContained(evt, state.wrapper[0]))
-					closeDatePicker(opt.animationTime);
+				if (!state.selDelay) {
+					if (!clickContained(evt, state.anchor[0]) && !clickContained(evt, state.wrapper[0]))
+						closeDatePicker(opt.animationTime);
+				}
 			}
 
 			function openDatePicker(duration) {
@@ -623,13 +645,8 @@
 						});
 					};
 
-					if (RangeReverseFix(state.selRange)) {
-						// Also reverse follow time attributes
-						var followTime_start = state.followTime.start;
-						state.followTime.start = state.followTime.end;
-						state.followTime.end = followTime_start;
+					if (selRangeReverseFix(state.selRange))
 						selRangeChange(['internal', 'range-reverse'], [true, true]);
-					}
 
 					if (state.selRange.start && state.selRange.end)
 						state.el.summary_bar.slideDown(duration);
@@ -649,7 +666,7 @@
 				return false;
 			}
 
-			function updateInput(datetime, date_input, time_input) {
+			function updateInput(datetime, date_input, time_input, followTime) {
 				var dStr = null,
 				tStr = null;
 				if (datetime) {
@@ -660,8 +677,14 @@
 				}
 				if (date_input)
 					date_input.val(dStr);
-				if (time_input)
+				if (time_input) {
 					time_input.val(tStr);
+
+					if (followTime && tStr)
+						time_input.addClass('floating');
+					else
+						time_input.removeClass('floating');
+				}
 			}
 
 			function updateTimePicker(datetime, time_picker) {
@@ -704,7 +727,8 @@
 						default:
 							updateInput(state.selRange.start,
 								source[1] == 'date' || !state.el.start_input_date.val() ? state.el.start_input_date : null,
-								source[1] == 'time' || !state.el.start_input_time.val() ? state.el.start_input_time : null);
+								source[1] == 'time' || !state.el.start_input_time.val() ? state.el.start_input_time : null,
+								state.followTime.start);
 							break;
 						}
 						break;
@@ -718,12 +742,12 @@
 							break;
 						case 'date':
 							if (!state.el.start_input_time.val())
-								updateInput(state.selRange.start, null, state.el.start_input_time);
+								updateInput(state.selRange.start, null, state.el.start_input_time, state.followTime.start);
 							break;
 						}
 						break;
 					default:
-						updateInput(state.selRange.start, state.el.start_input_date, state.el.start_input_time);
+						updateInput(state.selRange.start, state.el.start_input_date, state.el.start_input_time, state.followTime.start);
 						updateTimePicker(state.followTime.start ? false : state.selRange.start, state.start_timepicker);
 					}
 					var timeStr = getDateTimeString(state.selRange.start, opt.summaryFmt);
@@ -738,7 +762,8 @@
 						default:
 							updateInput(state.selRange.end,
 								source[1] == 'date' || !state.el.end_input_date.val() ? state.el.end_input_date : null,
-								source[1] == 'time' || !state.el.end_input_time.val() ? state.el.end_input_time : null);
+								source[1] == 'time' || !state.el.end_input_time.val() ? state.el.end_input_time : null,
+								state.followTime.start);
 							break;
 						}
 						break;
@@ -752,12 +777,12 @@
 							break;
 						case 'date':
 							if (!state.el.end_input_time.val())
-								updateInput(state.selRange.end, null, state.el.end_input_time);
+								updateInput(state.selRange.end, null, state.el.end_input_time, state.followTime.start);
 							break;
 						}
 						break;
 					default:
-						updateInput(state.selRange.end, state.el.end_input_date, state.el.end_input_time);
+						updateInput(state.selRange.end, state.el.end_input_date, state.el.end_input_time, state.followTime.start);
 						updateTimePicker(state.followTime.end ? false : state.selRange.end, state.end_timepicker);
 					}
 					var timeStr = getDateTimeString(state.selRange.end, opt.summaryFmt);
@@ -830,7 +855,7 @@
 					datetime.setMonth(date.getMonth());
 					datetime.setDate(date.getDate());
 
-					selRangeChange([source, 'date'], [true, false]);
+					selRangeChange([source, 'date'], [true, selRangeReverseFix(state.selRange)]);
 				}
 			}
 
@@ -876,7 +901,7 @@
 					datetime.setSeconds(newSec);
 					datetime.setMilliseconds(newMSec);
 
-					selRangeChange([source, 'time'], [true, false]);
+					selRangeChange([source, 'time'], [true, selRangeReverseFix(state.selRange)]);
 				}
 			}
 
@@ -884,15 +909,7 @@
 				state.selRange.start = datetime;
 				state.followTime.start = notime;
 
-				var RangeReversed = RangeReverseFix(state.selRange);
-				if (RangeReversed) {
-					// Also reverse follow time attributes
-					var followTime_start = state.followTime.start;
-					state.followTime.start = state.followTime.end;
-					state.followTime.end = followTime_start;
-
-					selRangeChange([source, 'set-rangestart'], [true, RangeReversed]);
-				}
+				selRangeChange([source, 'set-rangestart'], [true, selRangeReverseFix(state.selRange)]);
 			}
 
 			function uiSetEndDate(source, date) {
@@ -924,7 +941,7 @@
 					datetime.setMonth(date.getMonth());
 					datetime.setDate(date.getDate());
 
-					selRangeChange([source, 'date'], [false, true]);
+					selRangeChange([source, 'date'], [selRangeReverseFix(state.selRange), true]);
 				}
 			}
 
@@ -970,7 +987,7 @@
 					datetime.setSeconds(newSec);
 					datetime.setMilliseconds(newMSec);
 
-					selRangeChange([source, 'time'], [false, true]);
+					selRangeChange([source, 'time'], [selRangeReverseFix(state.selRange), true]);
 				}
 			}
 
@@ -978,15 +995,7 @@
 				state.selRange.end = datetime;
 				state.followTime.end = notime;
 
-				var RangeReversed = RangeReverseFix(state.selRange);
-				if (RangeReversed) {
-					// Also reverse follow time attributes
-					var followTime_start = state.followTime.start;
-					state.followTime.start = state.followTime.end;
-					state.followTime.end = followTime_start;
-
-					selRangeChange([source, 'set-rangeend'], [RangeReversed, true]);
-				}
+				selRangeChange([source, 'set-rangeend'], [selRangeReverseFix(state.selRange), true]);
 			}
 
 			function setRange(source, datetime1, notime1, datetime2, notime2, silent) {
@@ -995,12 +1004,7 @@
 				state.selRange.end = datetime2;
 				state.followTime.end = notime2;
 
-				if (RangeReverseFix(state.selRange)) {
-					// Also reverse follow time attributes
-					var followTime_start = state.followTime.start;
-					state.followTime.start = state.followTime.end;
-					state.followTime.end = followTime_start;
-				}
+				selRangeReverseFix(state.selRange);
 				selRangeChange([source, 'set-range'], [true, true]);
 			}
 
