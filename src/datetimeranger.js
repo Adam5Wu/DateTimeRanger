@@ -499,20 +499,8 @@
 				});
 				state.el.end_input_time.attr('focusNext', state.el.start_input_time);
 
-				state.el.start_zone.on('click', function (event) {
-					if (!clickContained(event, state.el.start_inputs[0]) &&
-						!clickContained(event, state.el.start_inputs[1]) &&
-						!clickContained(event, state.el.start_pickers[0]))
-						state.el.start_input_date[0].focus();
-				});
 				state.el.start_zone.on('mouseenter', function (event) {
 					state.el.start_input_date[0].focus();
-				});
-				state.el.end_zone.on('click', function (event) {
-					if (!clickContained(event, state.el.end_inputs[0]) &&
-						!clickContained(event, state.el.end_inputs[1]) &&
-						!clickContained(event, state.el.end_pickers[0]))
-						state.el.end_input_date[0].focus();
 				});
 				state.el.end_zone.on('mouseenter', function (event) {
 					state.el.end_input_date[0].focus();
@@ -849,12 +837,8 @@
 			}
 
 			function uiSetStartDate(source, date) {
-				var Update = false;
-
 				var datetime = state.selRange.start;
 				if (!datetime) {
-					Update = true;
-
 					datetime = state.selRange.start = new Date();
 					var time = state.start_timepicker.getTime();
 					datetime.setHours(Math.floor(time[0] / 3600))
@@ -866,19 +850,11 @@
 					datetime.setMilliseconds(0);
 				}
 
-				if (!Update) {
-					Update = ((datetime.getFullYear() != date.getFullYear()) ||
-						(datetime.getMonth() != date.getMonth()) ||
-						(datetime.getDate() != date.getDate()));
-				}
+				datetime.setFullYear(date.getFullYear());
+				datetime.setMonth(date.getMonth());
+				datetime.setDate(date.getDate());
 
-				if (Update) {
-					datetime.setFullYear(date.getFullYear());
-					datetime.setMonth(date.getMonth());
-					datetime.setDate(date.getDate());
-
-					selRangeChange([source, 'date'], [true, false]);
-				}
+				selRangeChange([source, 'date'], [true, false]);
 			}
 
 			function uiSetStartTime(source, time, now) {
@@ -928,12 +904,8 @@
 			}
 
 			function uiSetEndDate(source, date) {
-				var Update = false;
-
 				var datetime = state.selRange.end;
 				if (!datetime) {
-					Update = true;
-
 					datetime = state.selRange.end = new Date();
 					var time = state.end_timepicker.getTime();
 					datetime.setHours(Math.floor(time[0] / 3600))
@@ -945,19 +917,11 @@
 					datetime.setMilliseconds(0);
 				}
 
-				if (!Update) {
-					Update = ((datetime.getFullYear() != date.getFullYear()) ||
-						(datetime.getMonth() != date.getMonth()) ||
-						(datetime.getDate() != date.getDate()));
-				}
+				datetime.setFullYear(date.getFullYear());
+				datetime.setMonth(date.getMonth());
+				datetime.setDate(date.getDate());
 
-				if (Update) {
-					datetime.setFullYear(date.getFullYear());
-					datetime.setMonth(date.getMonth());
-					datetime.setDate(date.getDate());
-
-					selRangeChange([source, 'date'], [false, true]);
-				}
+				selRangeChange([source, 'date'], [false, true]);
 			}
 
 			function uiSetEndTime(source, time, now) {
