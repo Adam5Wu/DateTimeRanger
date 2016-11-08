@@ -11,6 +11,7 @@
 		<link rel="stylesheet" type="text/css" href="../TimeDropper-Ex/src/timedropper.css" />
 		<link rel="stylesheet" type="text/css" href="../DateRange-Picker-Ex/src/daterangepicker.css" />
 		<link rel="stylesheet" type="text/css" href="src/datetimeranger.css" />
+		<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.min.js"></script>
 		<script type="text/javascript" src="../TimeDropper-Ex/src/timedropper.js"></script>
@@ -18,6 +19,7 @@
 		<script type="text/javascript" src="../DateRange-Picker-Ex/src/jquery.daterangepicker.js"></script>
 		<script type="text/javascript" src="../DateRange-Picker-Ex/src/jquery.daterangepicker.lang.js"></script>
 		<script type="text/javascript" src="src/datetimeranger.js"></script>
+		<script type="text/javascript" src="src/datetimeranger.lang.js"></script>
 		<style type="text/css">
 		#wrapper
 		{
@@ -27,7 +29,7 @@
 			line-height:1.5;
 			font-size:14px;
 		}
-		.demo { margin:30px 20px 0 0; }
+		.demo { margin-top:30px; }
 		button { color:black !important; }
 		pre
 		{
@@ -49,8 +51,8 @@
 				Requires
 				<a href="http://jquery.com/" target=_blank>jQuery</a> 1.7.0+ (MIT LICENSE),
 				<a href="http://momentjs.com/" target=_blank>MomentJS</a> 2.9.0+ (MIT LICENSE),
-				<a href="https://adam5wu.github.io/DateRange-Picker-Ex/" target=_blank>DateRange-Picker-Ex</a> 1.1.4+ (MIT LICENSE),
-				<a href="https://adam5wu.github.io/TimeDropper-Ex/" target=_blank>TimeDropper-Ex</a> 1.4.1+ (MIT LICENSE)
+				<a href="https://adam5wu.github.io/DateRange-Picker-Ex/" target=_blank>DateRange-Picker-Ex</a> 1.1.5+ (MIT LICENSE),
+				<a href="https://adam5wu.github.io/TimeDropper-Ex/" target=_blank>TimeDropper-Ex</a> 1.4.2+ (MIT LICENSE)
 			</p>
 			Compatible Browsers:
 			<ul>
@@ -63,7 +65,9 @@
 			</ul>
 			<p>
 				Supports multi-language, you can choose a pre-defined language or set it to auto-detect mode. <br>
-				You can also define new languages, see documentations of
+				You can also define new languages,
+				refer to <a href="src/datetimeranger.lang.js">the translations module</a> for example.
+				Also, see documentations of
 				<a href="https://adam5wu.github.io/DateRange-Picker-Ex/" target=_blank>DateRange-Picker-Ex</a> and
 				<a href="https://adam5wu.github.io/TimeDropper-Ex/" target=_blank>TimeDropper-Ex</a>.
 			</p>
@@ -90,6 +94,7 @@
 &lt;script type="text/javascript" src="daterangepicker.min.js">&lt;/script>
 &lt;script type="text/javascript" src="daterangepicker.lang.min.js">&lt;/script>
 &lt;script type="text/javascript" src="dist/datetimeranger.min.js">&lt;/script>
+&lt;script type="text/javascript" src="dist/datetimeranger.lang.min.js">&lt;/script>
 </pre>
             <h2 id="demonstrations">Demonstrations</h2>
 			<div>
@@ -97,7 +102,7 @@
 				<button id="remove-slate">Remove Slate Color Theme</button>
 			</div>
 			<div class="demo">
-				Default: <div id="dtp1"></div>
+				Default: <div id="dtp1" style="border:1px dashed darkgray"></div>
 			</div>
 		</div>
 <script>
@@ -110,7 +115,7 @@ $('#add-slate').click(function () {
 $('#remove-slate').click(function () {
 	$('link[rel=stylesheet][href*="slate"]').remove();
 });
-$("#dtp1").datetimeranger({});
+$("#dtp1").dateTimeRanger({});
 </script>
 	</body>
 </html>

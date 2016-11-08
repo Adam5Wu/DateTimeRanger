@@ -1,0 +1,153 @@
+.dt-ranger
+{
+	font-size: 12px;
+	font-family: Arial, sans-serif;
+	display: inline-block;
+	line-height: 100%;
+	border: 1px solid #456;
+	background-color: #123;
+	padding: 6px;
+	line-height: 20px;
+	color: inherit;
+	box-shadow: none;
+	margin: 4px;
+}
+.dt-ranger b
+{
+	color: #789;
+	font-weight: 700;
+}
+.dt-ranger .default-bar,
+.dt-ranger .summary-bar
+{
+	cursor: pointer;
+	font-size: 12pt;
+	-webkit-transition: color 0.25s linear 0s;
+	-moz-transition: color 0.25s linear 0s;
+	-ms-transition: color 0.25s linear 0s;
+	transition: color 0.25s linear 0s;
+	margin: 0 0.5em;
+}
+.dt-ranger .default-bar:hover,
+.dt-ranger .summary-bar:hover
+{
+	color: #ACE;
+}
+.dt-ranger .default-bar>i
+{
+	margin-right: 0.5em;
+}
+.dt-ranger .summary-bar,
+.dt-ranger .oper-zone
+{
+	display: none;
+}
+.dt-ranger>div
+{
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.dt-ranger .oper-zone>div
+{
+	display: inline-block;
+	line-height: 100%;
+	text-align: center;
+	vertical-align: top;
+	padding: 0 0.5em 0.5em;
+	border-radius: 7px;
+	
+	-webkit-transition: all 0.25s linear 0s;
+	-moz-transition: all 0.25s linear 0s;
+	-ms-transition: all 0.25s linear 0s;
+	transition: all 0.25s linear 0s;
+}
+.dt-ranger .oper-zone>div:hover
+{
+	background-color: #234;
+}
+.dt-ranger .oper-zone>div.end-zone
+{
+	margin-left: 0.5em;
+}
+.dt-ranger .oper-zone .input-wrapper
+{
+	display: inline-block;
+	white-space: nowrap;
+	line-height: 100%;
+	margin: 0.25em 0.25em 0.5em 0.5em;
+	vertical-align: middle;
+	border: 1px solid #456;
+	border-radius: 5px;
+}
+.dt-ranger .oper-zone label
+{
+	font-size: 12pt;
+}
+.dt-ranger .oper-zone input
+{
+	font-family: monospace, courier new, courier;
+	font-size: 12pt;
+	padding: 0.2em 0;
+	cursor: text;
+	border: none;
+	outline: none;
+	position: relative;
+	border-radius: 5px;
+	background-color: #123;
+	color: #ACE;
+}
+.dt-ranger .oper-zone input.invalid {
+	color: goldenrod;
+}
+.dt-ranger .oper-zone input.invalid:after {
+	content: "~~~~~~~~~~~~~~~ ?";
+	font-family: Times New Roman, Serif;
+	font-size: 9pt;
+	color: orchid;
+	position: absolute;
+	top: 12pt;
+	right: 0.5em;
+	overflow: hidden;
+	cursor: help;
+}
+.dt-ranger .oper-zone input.date
+{
+	width: 7em;
+	text-align: center;
+}
+.dt-ranger .oper-zone input.time
+{
+	width: 5.5em;
+	text-align: left;
+}
+.dt-ranger .oper-zone input::-webkit-calendar-picker-indicator,
+.dt-ranger .oper-zone input::-webkit-inner-spin-button,
+.dt-ranger .oper-zone input::-webkit-clear-button
+{
+	-webkit-appearance: none;
+    display: none;
+}
+
+.dt-ranger .oper-zone .dr-picker
+{
+	border: none;
+	padding: 0;
+}
+.dt-ranger .oper-zone .dr-picker .month-wrapper table
+{
+	width: 180px;
+}
+.dt-ranger .oper-zone .dr-picker .footer
+{
+	display: none;
+}
+.dt-ranger .oper-zone .dr-picker,
+.dt-ranger .oper-zone .td-clock
+{
+	vertical-align: top;
+}
+.dt-ranger .oper-zone .td-clock
+{
+	margin-left: 12px;
+}

@@ -6,7 +6,10 @@
 
 DateTimeRanger is a jQuery plugin for fast visual and interactive date + time (range) entry.
 
-It is built on top of [DateRange-Picker-Ex](https://github.com/Adam5Wu/DateRange-Picker-Ex) and [TimeDropper-Ex](https://github.com/Adam5Wu/TimeDropper-Ex).
+It is built on top of
+[DateRange-Picker-Ex](https://github.com/Adam5Wu/DateRange-Picker-Ex)
+and
+[TimeDropper-Ex](https://github.com/Adam5Wu/TimeDropper-Ex).
 
 ## [Documentation & Demo](https://adam5wu.github.io/DateTimeRanger/)
 
