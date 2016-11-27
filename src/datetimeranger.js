@@ -1072,13 +1072,13 @@
 								'class': 'input-wrapper'
 							}, tagGen('input', {
 									'class': 'date',
-									'type': /Edge/.test(navigator.userAgent) ? 'text' : 'date',
+									'type': /(Edge|Android)/.test(navigator.userAgent) ? 'text' : 'date',
 									'min': '2000-01-01',
 									'max': '3000-01-01'
 								})
 								 + tagGen('input', {
 									'class': 'time',
-									'type': /Edge/.test(navigator.userAgent) ? 'text' : 'time'
+									'type': /(Edge|Android)/.test(navigator.userAgent) ? 'text' : 'time'
 								})))
 						 + tagGen('div', {
 							'class': 'pickers'
@@ -1091,13 +1091,13 @@
 								'class': 'input-wrapper'
 							}, tagGen('input', {
 									'class': 'date',
-									'type': /Edge/.test(navigator.userAgent) ? 'text' : 'date',
+									'type': /(Edge|Android)/.test(navigator.userAgent) ? 'text' : 'date',
 									'min': '2000-01-01',
 									'max': '3000-01-01'
 								})
 								 + tagGen('input', {
 									'class': 'time',
-									'type': /Edge/.test(navigator.userAgent) ?' text ':'time'
+									'type': /(Edge|Android)/.test(navigator.userAgent) ?' text ':'time'
 								})))
 						 + tagGen('div', {
 							'class': 'pickers'
